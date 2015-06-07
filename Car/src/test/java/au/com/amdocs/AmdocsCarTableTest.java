@@ -1,6 +1,7 @@
 package au.com.amdocs;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
@@ -16,6 +17,7 @@ import org.mockito.Matchers;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import org.mockito.internal.util.reflection.Whitebox;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
@@ -112,6 +114,20 @@ public class AmdocsCarTableTest {
 	}
 	
 	@Test
+	public void testGetScannerWithFileName() {
+		this.instance = new AmdocsCarTable("src/test/resources/data.txt");
+		assertNotNull(this.instance.getScanner());
+		assertFalse(this.instance.isUserInativeMode());
+	}
+	
+	@Test
+	public void testGetScannerWithInvalidFileName() {
+		this.instance = new AmdocsCarTable("abc");
+		assertNotNull(this.instance.getScanner());
+		assertTrue(this.instance.isUserInativeMode());
+	}
+	
+	@Test
 	public void testGetExecuter() throws Exception {
 		PowerMockito.mockStatic(ExecuterConstructFactory.class);
 		PowerMockito.doReturn(mockExecuter).when(ExecuterConstructFactory.class, "contructExecuter", Matchers.any(Command.class), Matchers.any(Car.class));
@@ -126,6 +142,52 @@ public class AmdocsCarTableTest {
 		PowerMockito.doReturn("abc").when(mockScanner).nextLine();
 		PowerMockito.mockStatic(CommandConstructFactory.class);
 		PowerMockito.doReturn(mockCommand).when(CommandConstructFactory.class, "constructCommand", Matchers.anyString());
+		PowerMockito.doCallRealMethod().when(this.instance, "getNextCommand", mockScanner);
+		
+		assertEquals(mockCommand, this.instance.getNextCommand(mockScanner));
+	}
+	
+	@Test
+	public void testGetNextCommandNullString() throws Exception {
+		Scanner mockScanner = PowerMockito.mock(Scanner.class);
+		PowerMockito.when(mockScanner.nextLine()).thenReturn(null, "abc");
+		PowerMockito.mockStatic(CommandConstructFactory.class);
+		PowerMockito.doReturn(mockCommand).when(CommandConstructFactory.class, "constructCommand", Matchers.anyString());
+		PowerMockito.doCallRealMethod().when(this.instance, "getNextCommand", mockScanner);
+		
+		assertEquals(mockCommand, this.instance.getNextCommand(mockScanner));
+	}
+	
+	@Test
+	public void testGetNextCommandHashString() throws Exception {
+		Scanner mockScanner = PowerMockito.mock(Scanner.class);
+		PowerMockito.when(mockScanner.nextLine()).thenReturn("#", "abc");
+		PowerMockito.mockStatic(CommandConstructFactory.class);
+		PowerMockito.doReturn(mockCommand).when(CommandConstructFactory.class, "constructCommand", Matchers.anyString());
+		PowerMockito.doCallRealMethod().when(this.instance, "getNextCommand", mockScanner);
+		
+		assertEquals(mockCommand, this.instance.getNextCommand(mockScanner));
+	}
+	
+	@Test
+	public void testGetNextCommandUserInactive() throws Exception {
+		Scanner mockScanner = PowerMockito.mock(Scanner.class);
+		PowerMockito.doReturn("abc").when(mockScanner).nextLine();
+		PowerMockito.mockStatic(CommandConstructFactory.class);
+		PowerMockito.doReturn(mockCommand).when(CommandConstructFactory.class, "constructCommand", Matchers.anyString());
+		Whitebox.setInternalState(instance, "userInativeMode", true);
+		PowerMockito.doCallRealMethod().when(this.instance, "getNextCommand", mockScanner);
+		
+		assertEquals(mockCommand, this.instance.getNextCommand(mockScanner));
+	}
+	
+	@Test
+	public void testGetNextCommandUserInactiveFalse() throws Exception {
+		Scanner mockScanner = PowerMockito.mock(Scanner.class);
+		PowerMockito.doReturn("abc").when(mockScanner).nextLine();
+		PowerMockito.mockStatic(CommandConstructFactory.class);
+		PowerMockito.doReturn(mockCommand).when(CommandConstructFactory.class, "constructCommand", Matchers.anyString());
+		Whitebox.setInternalState(instance, "userInativeMode", false);
 		PowerMockito.doCallRealMethod().when(this.instance, "getNextCommand", mockScanner);
 		
 		assertEquals(mockCommand, this.instance.getNextCommand(mockScanner));

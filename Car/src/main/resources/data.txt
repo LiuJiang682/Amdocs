@@ -75,3 +75,4 @@ gps_report
 
 forward
 gps_report
+quit

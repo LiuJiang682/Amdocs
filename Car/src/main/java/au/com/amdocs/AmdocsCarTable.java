@@ -1,5 +1,7 @@
 package au.com.amdocs;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.Serializable;
 import java.util.Scanner;
 
@@ -7,6 +9,8 @@ import au.com.amdocs.command.QuitCommand;
 import au.com.amdocs.command.factory.CommandConstructFactory;
 import au.com.amdocs.command.interf.Command;
 import au.com.amdocs.command.interf.CommandExecuter;
+import au.com.amdocs.common.CommonConstants;
+import au.com.amdocs.common.StringUtils;
 import au.com.amdocs.executer.factory.ExecuterConstructFactory;
 import au.com.amdocs.interf.Car;
 import au.com.amdocs.interf.CarTable;
@@ -18,14 +22,22 @@ public class AmdocsCarTable implements CarTable, Serializable {
 	 */
 	private static final long serialVersionUID = -7453796625968290202L;
 
+	private static final String COMMENT_PREFIX = "#";
+
 	private static final int MAX_X = 5;
 	private static final int MAX_Y = 5;
 
 	private Car car;
+	private String dataFileName;
+	private boolean userInativeMode = true;
 
 	// default constructor
 	public AmdocsCarTable() {
 
+	}
+
+	public AmdocsCarTable(final String dataFileName) {
+		this.dataFileName = dataFileName;
 	}
 
 	public Car getCar() {
@@ -49,16 +61,24 @@ public class AmdocsCarTable implements CarTable, Serializable {
 	/**
 	 * This method returns a command object. It use abstract factory pattern to
 	 * create factory object and than the factory object creates command object.
-	 *
+	 * 
 	 * @return command object.
 	 */
 	public Command getNextCommand(final Scanner scanner) {
 		Command command = null;
 
-		// User interactive mode
-		System.out.println("Please enter your command: ");
-		String userEntered = scanner.nextLine();
-		command = CommandConstructFactory.constructCommand(userEntered);
+		if (this.userInativeMode) {
+			// User interactive mode
+			System.out.println("Please enter your command: ");
+		}
+	
+		String data = null;
+		do {
+			data = scanner.nextLine();
+		}
+		while ((StringUtils.isNullOrEmpty(data)) || (data.startsWith(COMMENT_PREFIX)));
+			
+		command = CommandConstructFactory.constructCommand(data);
 
 		return command;
 	}
@@ -77,10 +97,29 @@ public class AmdocsCarTable implements CarTable, Serializable {
 
 		return ExecuterConstructFactory.contructExecuter(command, car);
 	}
-	
+
 	public Scanner getScanner() {
-		Scanner scanner = new Scanner(System.in);
+		Scanner scanner = null;
+
+		if (StringUtils.isNullOrEmpty(this.dataFileName)) {
+			scanner = new Scanner(System.in);
+		} else {
+			File dataFile = new File(this.dataFileName);
+
+			try {
+				scanner = new Scanner(dataFile);
+				this.userInativeMode = false;
+			} catch (FileNotFoundException e) {
+				System.out.println("Cannot load data file: "
+						+ this.dataFileName + "! Default to user enter mode.");
+				scanner = new Scanner(System.in);
+			}
+		}
 		return scanner;
+	}
+
+	public boolean isUserInativeMode() {
+		return userInativeMode;
 	}
 
 	public void run() {
@@ -105,7 +144,13 @@ public class AmdocsCarTable implements CarTable, Serializable {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		AmdocsCarTable table = new AmdocsCarTable();
+		AmdocsCarTable table = null;
+		if (StringUtils.isNullOrEmptyArray(args)) {
+			table = new AmdocsCarTable();
+		} else {
+			table = new AmdocsCarTable(args[CommonConstants.ZERO]);
+		}
+
 		table.run();
 	}
 
