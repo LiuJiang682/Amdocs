@@ -32,24 +32,24 @@ public class ExecuterConstructFactory implements Serializable {
 	public static ExecuterFactory findExecuterFactory(Command command) {
 		ExecuterFactory factory = null;
 		switch (command.getCommand()) {
-			case PLACE:
-				factory = new PlaceCommandExecuterFactory();
+			case INIT:
+				factory = new InitCommandExecuterFactory();
 				break;
 				
-			case MOVE:
-				factory = new MoveCommandExecuterFactory();
+			case FORWARD:
+				factory = new ForwardCommandExecuterFactory();
 				break;
 			
-			case LEFT:
-			    factory = new LeftCommandExecuterFactory();
+			case TURN_LEFT:
+			    factory = new TurnLeftCommandExecuterFactory();
 			    break;
 			    
-			case RIGHT:
-				factory = new RightCommandExecuterFactory();
+			case TURN_RIGHT:
+				factory = new TurnRightCommandExecuterFactory();
 				break;
 				
-			case REPORT:
-				factory = new ReportCommandExecuterFactory();
+			case GPS_REPORT:
+				factory = new GPSReportCommandExecuterFactory();
 				break;
 				
 			case DONOTHING:
