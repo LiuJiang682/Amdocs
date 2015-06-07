@@ -40,22 +40,22 @@ public class CommandConstructFactory implements Serializable {
 
 		CommandFactory commandFactory = null;
 		switch (CommandEnum.fromString(commandString)) {
-		case PLACE:
-			commandFactory = new PlaceCommandFactory();
+		case INIT:
+			commandFactory = new InitCommandFactory();
 			break;
-		case MOVE:
-			commandFactory = new MoveCommandFactory();
+		case FORWARD:
+			commandFactory = new ForwardCommandFactory();
 			break;
-		case LEFT:
-			commandFactory = new LeftCommandFactory();
+		case TURN_LEFT:
+			commandFactory = new TurnLeftCommandFactory();
 			break;
-		case RIGHT:
-			commandFactory = new RightCommandFactory();
+		case TURN_RIGHT:
+			commandFactory = new TurnRightCommandFactory();
 			break;
-		case REPORT:
-			commandFactory = new ReportCommandFactory();
+		case GPS_REPORT:
+			commandFactory = new GPSReportCommandFactory();
 			break;
-		default:
+		case DONOTHING:
 			commandFactory = new DoNothingCommandFactory();
 		}
 

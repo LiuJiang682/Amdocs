@@ -9,12 +9,12 @@ import au.com.amdocs.common.StringUtils;
  * 
  */
 public enum CommandEnum {
-	PLACE, MOVE, LEFT, RIGHT, REPORT, DONOTHING;
+	INIT, FORWARD, TURN_LEFT, TURN_RIGHT, GPS_REPORT, DONOTHING;
 
 	public static CommandEnum fromString(final String commandString) {
 		if ((!StringUtils.isNullOrEmpty(commandString))
-				&& (commandString.toUpperCase().startsWith(PLACE.toString()))) {
-			return PLACE;
+				&& (commandString.toUpperCase().startsWith(INIT.toString()))) {
+			return INIT;
 		}
 		
 		for (CommandEnum command : CommandEnum.values()) {
