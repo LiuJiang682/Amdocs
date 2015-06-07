@@ -1,77 +1,77 @@
 #Invalid command test
-RRplace 0, 1, east
-report
+RRinit 0, 1, east
+gps_report
 
 # demon the car ignore the sequence commands
-move
-report
+forward
+gps_report
 
-right
-report
+turn_right
+gps_report
 
-left
-report
+turn_left
+gps_report
 # end of sequence commands
 
-# Start valid place command
-place 2, 3, south
-report
+# Start valid init command
+init 2, 3, south
+gps_report
 
-move
-report
+forward
+gps_report
 
-left
-report
+turn_left
+gps_report
 
-right
-report
+turn_right
+gps_report
 
-# move the car to the boundry
-move
-move
-report
+# forward the car to the boundary
+forward
+forward
+gps_report
 
-# move the car pass the boundry. 
+# forward the car pass the boundary. 
 # The car should ignore the command
-move
-report
+forward
+gps_report
 
-# place an invalid command.
+# init an invalid command.
 # The car should ignore the command
-place 2, 2, ss
-report
+init 2, 2, ss
+gps_report
 
-# move to boundry
-move
-report
+# forward to boundary
+forward
+gps_report
 
 # turn the car back
-left
-report
+turn_left
+gps_report
 
-left
-report
+turn_left
+gps_report
 
 # keep moving
-move
-report
+forward
+gps_report
 
-# place the car in the origil spot.
-place 0, 0, south
-report
+# init the car in the origin spot.
+init 0, 0, south
+gps_report
 
-# move the car to (1, 1) spot.
-move
-report
+# forward the car to (1, 1) spot.
+forward
+gps_report
 
-left
-report
+turn_left
+gps_report
 
-move
-report
+forward
+gps_report
 
-left
-report
+turn_left
+gps_report
 
-move
-report
+forward
+gps_report
