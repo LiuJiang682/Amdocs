@@ -72,7 +72,7 @@ public class CommandConstructFactoryTest {
 	}
 	
 	/**
-	 * This test case tests the findCommandFactory method with empty string
+	 * This test case tests the findCommandFactory method with rubbish string
 	 * @throws Throwable
 	 */
 	@Test
@@ -83,7 +83,7 @@ public class CommandConstructFactoryTest {
 	}
 	
 	/**
-	 * This test case tests the findCommandFactory method with place string
+	 * This test case tests the findCommandFactory method with init string
 	 * @throws Throwable
 	 */
 	@Test
@@ -94,7 +94,7 @@ public class CommandConstructFactoryTest {
 	}
 	
 	/**
-	 * This test case tests the findCommandFactory method with move string
+	 * This test case tests the findCommandFactory method with forward string
 	 * @throws Throwable
 	 */
 	@Test
@@ -105,7 +105,7 @@ public class CommandConstructFactoryTest {
 	}
 	
 	/**
-	 * This test case tests the findCommandFactory method with move string
+	 * This test case tests the findCommandFactory method with incorrect forward string
 	 * @throws Throwable
 	 */
 	@Test
@@ -116,7 +116,7 @@ public class CommandConstructFactoryTest {
 	}
 	
 	/**
-	 * This test case tests the findCommandFactory method with left string
+	 * This test case tests the findCommandFactory method with turn_left string
 	 * @throws Throwable
 	 */
 	@Test
@@ -127,7 +127,8 @@ public class CommandConstructFactoryTest {
 	}
 	
 	/**
-	 * This test case tests the findCommandFactory method with left string
+	 * This test case tests the findCommandFactory method with incorrect
+	 * turn_left string
 	 * @throws Throwable
 	 */
 	@Test
@@ -138,7 +139,7 @@ public class CommandConstructFactoryTest {
 	}
 	
 	/**
-	 * This test case tests the findCommandFactory method with right string
+	 * This test case tests the findCommandFactory method with turn_right string
 	 * @throws Throwable
 	 */
 	@Test
@@ -149,7 +150,7 @@ public class CommandConstructFactoryTest {
 	}
 	
 	/**
-	 * This test case tests the findCommandFactory method with right string
+	 * This test case tests the findCommandFactory method with incorrect turn_right string
 	 * @throws Throwable
 	 */
 	@Test
@@ -160,7 +161,7 @@ public class CommandConstructFactoryTest {
 	}
 	
 	/**
-	 * This test case tests the findCommandFactory method with right string
+	 * This test case tests the findCommandFactory method with gps_report string
 	 * @throws Throwable
 	 */
 	@Test
@@ -171,12 +172,34 @@ public class CommandConstructFactoryTest {
 	}
 	
 	/**
-	 * This test case tests the findCommandFactory method with right string
+	 * This test case tests the findCommandFactory method with incorrect gps_report string
 	 * @throws Throwable
 	 */
 	@Test
 	public void testFindCommandFactoryWithIncorrectGPSReportString() throws Throwable {
 		CommandFactory commandFactory = CommandConstructFactory.findCommandFactory("gps_report xx");
+		assertNotNull(commandFactory);
+		assertTrue(commandFactory instanceof DoNothingCommandFactory);
+	}
+	
+	/**
+	 * This test case tests the findCommandFactory method with quit string
+	 * @throws Throwable
+	 */
+	@Test
+	public void testFindCommandFactoryWithQuitString() throws Throwable {
+		CommandFactory commandFactory = CommandConstructFactory.findCommandFactory("quit");
+		assertNotNull(commandFactory);
+		assertTrue(commandFactory instanceof QuitCommandFactory);
+	}
+	
+	/**
+	 * This test case tests the findCommandFactory method with incorrect gps_report string
+	 * @throws Throwable
+	 */
+	@Test
+	public void testFindCommandFactoryWithIncorrectQuitString() throws Throwable {
+		CommandFactory commandFactory = CommandConstructFactory.findCommandFactory("quit xx");
 		assertNotNull(commandFactory);
 		assertTrue(commandFactory instanceof DoNothingCommandFactory);
 	}
