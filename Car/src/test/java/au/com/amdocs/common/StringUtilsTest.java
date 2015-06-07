@@ -15,4 +15,13 @@ public class StringUtilsTest {
 		assertTrue(StringUtils.isNullOrEmpty(""));
 		assertFalse(StringUtils.isNullOrEmpty("abc"));
 	}
+	
+	@Test
+	public void testIsNullOrEmptyArray() {
+		assertTrue(StringUtils.isNullOrEmptyArray(null));
+		String[] testArrayEmpty = {};
+		assertTrue(StringUtils.isNullOrEmptyArray(testArrayEmpty));
+		String[] testArray = {"abc"};
+		assertFalse(StringUtils.isNullOrEmptyArray(testArray));
+	}
 }
