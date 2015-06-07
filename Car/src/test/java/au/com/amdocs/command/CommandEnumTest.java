@@ -14,15 +14,15 @@ public class CommandEnumTest {
 		assertEquals(CommandEnum.DONOTHING, CommandEnum.fromString(""));
 		assertEquals(CommandEnum.DONOTHING, CommandEnum.fromString("abc"));
 		
-		assertEquals(CommandEnum.MOVE, CommandEnum.fromString("Move"));
-		assertEquals(CommandEnum.LEFT, CommandEnum.fromString("LEFT"));
-		assertEquals(CommandEnum.REPORT, CommandEnum.fromString("Report"));
-		assertEquals(CommandEnum.RIGHT, CommandEnum.fromString("right"));
+		assertEquals(CommandEnum.FORWARD, CommandEnum.fromString("Forward"));
+		assertEquals(CommandEnum.TURN_LEFT, CommandEnum.fromString("TURN_LEFT"));
+		assertEquals(CommandEnum.GPS_REPORT, CommandEnum.fromString("GPS_Report"));
+		assertEquals(CommandEnum.TURN_RIGHT, CommandEnum.fromString("turn_right"));
 	}
 	
 	@Test
-	public void testFromStringMove() {
-		assertEquals(CommandEnum.PLACE, CommandEnum.fromString("place"));
-		assertEquals(CommandEnum.PLACE, CommandEnum.fromString("PLACE 0,0,NORTH"));
+	public void testFromStringInit() {
+		assertEquals(CommandEnum.INIT, CommandEnum.fromString("init"));
+		assertEquals(CommandEnum.INIT, CommandEnum.fromString("INIT 0,0,NORTH"));
 	}
 }

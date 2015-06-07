@@ -14,11 +14,11 @@ import org.powermock.modules.junit4.PowerMockRunner;
 
 import au.com.amdocs.command.factory.CommandConstructFactory;
 import au.com.amdocs.command.factory.DoNothingCommandFactory;
-import au.com.amdocs.command.factory.LeftCommandFactory;
-import au.com.amdocs.command.factory.MoveCommandFactory;
-import au.com.amdocs.command.factory.PlaceCommandFactory;
-import au.com.amdocs.command.factory.ReportCommandFactory;
-import au.com.amdocs.command.factory.RightCommandFactory;
+import au.com.amdocs.command.factory.TurnLeftCommandFactory;
+import au.com.amdocs.command.factory.ForwardCommandFactory;
+import au.com.amdocs.command.factory.InitCommandFactory;
+import au.com.amdocs.command.factory.GPSReportCommandFactory;
+import au.com.amdocs.command.factory.TurnRightCommandFactory;
 import au.com.amdocs.command.interf.Command;
 import au.com.amdocs.command.interf.CommandFactory;
 
@@ -87,10 +87,10 @@ public class CommandConstructFactoryTest {
 	 * @throws Throwable
 	 */
 	@Test
-	public void testFindCommandFactoryWithPlaceString() throws Throwable {
-		CommandFactory commandFactory = CommandConstructFactory.findCommandFactory("place");
+	public void testFindCommandFactoryWithInitString() throws Throwable {
+		CommandFactory commandFactory = CommandConstructFactory.findCommandFactory("init");
 		assertNotNull(commandFactory);
-		assertTrue(commandFactory instanceof PlaceCommandFactory);
+		assertTrue(commandFactory instanceof InitCommandFactory);
 	}
 	
 	/**
@@ -98,10 +98,10 @@ public class CommandConstructFactoryTest {
 	 * @throws Throwable
 	 */
 	@Test
-	public void testFindCommandFactoryWithMoveString() throws Throwable {
-		CommandFactory commandFactory = CommandConstructFactory.findCommandFactory("move");
+	public void testFindCommandFactoryWithForwardString() throws Throwable {
+		CommandFactory commandFactory = CommandConstructFactory.findCommandFactory("forward");
 		assertNotNull(commandFactory);
-		assertTrue(commandFactory instanceof MoveCommandFactory);
+		assertTrue(commandFactory instanceof ForwardCommandFactory);
 	}
 	
 	/**
@@ -109,8 +109,8 @@ public class CommandConstructFactoryTest {
 	 * @throws Throwable
 	 */
 	@Test
-	public void testFindCommandFactoryWithIncorrectMoveString() throws Throwable {
-		CommandFactory commandFactory = CommandConstructFactory.findCommandFactory("move xx");
+	public void testFindCommandFactoryWithIncorrectForwardString() throws Throwable {
+		CommandFactory commandFactory = CommandConstructFactory.findCommandFactory("Forward xx");
 		assertNotNull(commandFactory);
 		assertTrue(commandFactory instanceof DoNothingCommandFactory);
 	}
@@ -120,10 +120,10 @@ public class CommandConstructFactoryTest {
 	 * @throws Throwable
 	 */
 	@Test
-	public void testFindCommandFactoryWithLeftString() throws Throwable {
-		CommandFactory commandFactory = CommandConstructFactory.findCommandFactory("left");
+	public void testFindCommandFactoryWithTurnLeftString() throws Throwable {
+		CommandFactory commandFactory = CommandConstructFactory.findCommandFactory("turn_left");
 		assertNotNull(commandFactory);
-		assertTrue(commandFactory instanceof LeftCommandFactory);
+		assertTrue(commandFactory instanceof TurnLeftCommandFactory);
 	}
 	
 	/**
@@ -131,8 +131,8 @@ public class CommandConstructFactoryTest {
 	 * @throws Throwable
 	 */
 	@Test
-	public void testFindCommandFactoryWithIncorrectLeftString() throws Throwable {
-		CommandFactory commandFactory = CommandConstructFactory.findCommandFactory("left xx");
+	public void testFindCommandFactoryWithIncorrectTurnLeftString() throws Throwable {
+		CommandFactory commandFactory = CommandConstructFactory.findCommandFactory("turn_left xx");
 		assertNotNull(commandFactory);
 		assertTrue(commandFactory instanceof DoNothingCommandFactory);
 	}
@@ -142,10 +142,10 @@ public class CommandConstructFactoryTest {
 	 * @throws Throwable
 	 */
 	@Test
-	public void testFindCommandFactoryWithRightString() throws Throwable {
-		CommandFactory commandFactory = CommandConstructFactory.findCommandFactory("right");
+	public void testFindCommandFactoryWithTurnRightString() throws Throwable {
+		CommandFactory commandFactory = CommandConstructFactory.findCommandFactory("turn_right");
 		assertNotNull(commandFactory);
-		assertTrue(commandFactory instanceof RightCommandFactory);
+		assertTrue(commandFactory instanceof TurnRightCommandFactory);
 	}
 	
 	/**
@@ -153,8 +153,8 @@ public class CommandConstructFactoryTest {
 	 * @throws Throwable
 	 */
 	@Test
-	public void testFindCommandFactoryWithIncorrectRightString() throws Throwable {
-		CommandFactory commandFactory = CommandConstructFactory.findCommandFactory("right xx");
+	public void testFindCommandFactoryWithIncorrectTurnRightString() throws Throwable {
+		CommandFactory commandFactory = CommandConstructFactory.findCommandFactory("turn_right xx");
 		assertNotNull(commandFactory);
 		assertTrue(commandFactory instanceof DoNothingCommandFactory);
 	}
@@ -164,10 +164,10 @@ public class CommandConstructFactoryTest {
 	 * @throws Throwable
 	 */
 	@Test
-	public void testFindCommandFactoryWithReportString() throws Throwable {
-		CommandFactory commandFactory = CommandConstructFactory.findCommandFactory("report");
+	public void testFindCommandFactoryWithGPSReportString() throws Throwable {
+		CommandFactory commandFactory = CommandConstructFactory.findCommandFactory("GPS_report");
 		assertNotNull(commandFactory);
-		assertTrue(commandFactory instanceof ReportCommandFactory);
+		assertTrue(commandFactory instanceof GPSReportCommandFactory);
 	}
 	
 	/**
@@ -175,8 +175,8 @@ public class CommandConstructFactoryTest {
 	 * @throws Throwable
 	 */
 	@Test
-	public void testFindCommandFactoryWithIncorrectReportString() throws Throwable {
-		CommandFactory commandFactory = CommandConstructFactory.findCommandFactory("report xx");
+	public void testFindCommandFactoryWithIncorrectGPSReportString() throws Throwable {
+		CommandFactory commandFactory = CommandConstructFactory.findCommandFactory("gps_report xx");
 		assertNotNull(commandFactory);
 		assertTrue(commandFactory instanceof DoNothingCommandFactory);
 	}
