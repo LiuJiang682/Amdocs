@@ -12,21 +12,21 @@ import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
 import au.com.amdocs.command.DoNothingCommand;
-import au.com.amdocs.command.LeftCommand;
-import au.com.amdocs.command.MoveCommand;
-import au.com.amdocs.command.PlaceCommand;
-import au.com.amdocs.command.ReportCommand;
-import au.com.amdocs.command.RightCommand;
+import au.com.amdocs.command.TurnLeftCommand;
+import au.com.amdocs.command.ForwardCommand;
+import au.com.amdocs.command.InitCommand;
+import au.com.amdocs.command.GPSReportCommand;
+import au.com.amdocs.command.TurnRightCommand;
 import au.com.amdocs.command.interf.Command;
 import au.com.amdocs.command.interf.CommandExecuter;
 import au.com.amdocs.command.interf.ExecuterFactory;
 import au.com.amdocs.executer.factory.DoNothingExecutorFactory;
 import au.com.amdocs.executer.factory.ExecuterConstructFactory;
-import au.com.amdocs.executer.factory.LeftCommandExecuterFactory;
-import au.com.amdocs.executer.factory.MoveCommandExecuterFactory;
-import au.com.amdocs.executer.factory.PlaceCommandExecuterFactory;
-import au.com.amdocs.executer.factory.ReportCommandExecuterFactory;
-import au.com.amdocs.executer.factory.RightCommandExecuterFactory;
+import au.com.amdocs.executer.factory.TurnLeftCommandExecuterFactory;
+import au.com.amdocs.executer.factory.ForwardCommandExecuterFactory;
+import au.com.amdocs.executer.factory.InitCommandExecuterFactory;
+import au.com.amdocs.executer.factory.GPSReportCommandExecuterFactory;
+import au.com.amdocs.executer.factory.TurnRightCommandExecuterFactory;
 import au.com.amdocs.interf.Car;
 
 @RunWith(PowerMockRunner.class)
@@ -43,42 +43,42 @@ public class ExecuterConstructFactoryTest {
 	
 	@Test
 	public void testFindExecuterFactoryPlace() {
-		Command command = new PlaceCommand(null);
+		Command command = new InitCommand(null);
 		ExecuterFactory factory = ExecuterConstructFactory.findExecuterFactory(command);
 		assertNotNull(factory);
-		assertTrue(factory instanceof PlaceCommandExecuterFactory);
+		assertTrue(factory instanceof InitCommandExecuterFactory);
 	}
 	
 	@Test
 	public void testFindExecuterFactoryMove() {
-		Command command = new MoveCommand();
+		Command command = new ForwardCommand();
 		ExecuterFactory factory = ExecuterConstructFactory.findExecuterFactory(command);
 		assertNotNull(factory);
-		assertTrue(factory instanceof MoveCommandExecuterFactory);
+		assertTrue(factory instanceof ForwardCommandExecuterFactory);
 	}
 	
 	@Test
 	public void testFindExecuterFactoryLeft() {
-		Command command = new LeftCommand();
+		Command command = new TurnLeftCommand();
 		ExecuterFactory factory = ExecuterConstructFactory.findExecuterFactory(command);
 		assertNotNull(factory);
-		assertTrue(factory instanceof LeftCommandExecuterFactory);
+		assertTrue(factory instanceof TurnLeftCommandExecuterFactory);
 	}
 	
 	@Test
 	public void testFindExecuterFactoryRight() {
-		Command command = new RightCommand();
+		Command command = new TurnRightCommand();
 		ExecuterFactory factory = ExecuterConstructFactory.findExecuterFactory(command);
 		assertNotNull(factory);
-		assertTrue(factory instanceof RightCommandExecuterFactory);
+		assertTrue(factory instanceof TurnRightCommandExecuterFactory);
 	}
 	
 	@Test
 	public void testFindExecuterFactoryReport() {
-		Command command = new ReportCommand();
+		Command command = new GPSReportCommand();
 		ExecuterFactory factory = ExecuterConstructFactory.findExecuterFactory(command);
 		assertNotNull(factory);
-		assertTrue(factory instanceof ReportCommandExecuterFactory);
+		assertTrue(factory instanceof GPSReportCommandExecuterFactory);
 	}
 	
 	@Test
