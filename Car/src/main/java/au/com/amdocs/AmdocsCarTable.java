@@ -3,6 +3,7 @@ package au.com.amdocs;
 import java.io.Serializable;
 import java.util.Scanner;
 
+import au.com.amdocs.command.QuitCommand;
 import au.com.amdocs.command.factory.CommandConstructFactory;
 import au.com.amdocs.command.interf.Command;
 import au.com.amdocs.command.interf.CommandExecuter;
@@ -87,15 +88,13 @@ public class AmdocsCarTable implements CarTable, Serializable {
 
 		Scanner scanner = getScanner();
 		try {
-			/**
-			 * May consider use queue here for large work load.
-			 */
-			while ((command = getNextCommand(scanner)) != null) {
+			do {
+				command = getNextCommand(scanner);
 				if (command.isValidCommand()) {
 					CommandExecuter executer = getExecuter(command, getCar());
 					executer.execute(this);
 				}
-			}
+			} while (!(command instanceof QuitCommand));
 		} finally {
 			scanner.close();
 		}

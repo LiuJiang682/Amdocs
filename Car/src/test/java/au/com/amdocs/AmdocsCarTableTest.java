@@ -20,6 +20,7 @@ import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
+import au.com.amdocs.command.QuitCommand;
 import au.com.amdocs.command.factory.CommandConstructFactory;
 import au.com.amdocs.command.interf.Command;
 import au.com.amdocs.command.interf.CommandExecuter;
@@ -55,20 +56,6 @@ public class AmdocsCarTableTest {
 		this.instance = null;
 		this.scanner = null;
 	}
-
-	/**
-	 * This test case tests the getNextCommand returns null.
-	 * It expected the getCar method never get call.
-	 */
-	@Test
-	public void testRunWithNullCommandObject() {
-		PowerMockito.doReturn(null).when(this.instance).getNextCommand(scanner);
-		PowerMockito.doCallRealMethod().when(this.instance).run();
-		
-		this.instance.run();
-		
-		Mockito.verify(this.instance, Mockito.never()).getCar();
-	}
 	
 	/**
 	 * This test case tests the getNextCommand returns a command object
@@ -78,7 +65,7 @@ public class AmdocsCarTableTest {
 	@Test
 	public void testRunWithInvalidCommand() {
 		Mockito.doReturn(false).when(mockCommand).isValidCommand();
-		PowerMockito.when(this.instance.getNextCommand(this.scanner)).thenReturn(mockCommand).thenReturn(null);
+		PowerMockito.when(this.instance.getNextCommand(this.scanner)).thenReturn(mockCommand).thenReturn(new QuitCommand());
 		Mockito.doCallRealMethod().when(this.instance).run();
 		
 		this.instance.run();
@@ -95,7 +82,7 @@ public class AmdocsCarTableTest {
 	public void testRun() {
 		PowerMockito.doReturn(true).when(mockCommand).isValidCommand();
 		PowerMockito.doReturn(true).when(mockCommand).isLegitimateMove(Matchers.any(CarTable.class));
-		PowerMockito.when(this.instance.getNextCommand(this.scanner)).thenReturn(mockCommand).thenReturn(null);
+		PowerMockito.when(this.instance.getNextCommand(this.scanner)).thenReturn(mockCommand).thenReturn(new QuitCommand());
 		
 		PowerMockito.doReturn(mockCar).when(this.instance).getCar();
 		PowerMockito.doReturn(mockExecuter).when(this.instance).getExecuter(Matchers.eq(mockCommand), Matchers.eq(mockCar));

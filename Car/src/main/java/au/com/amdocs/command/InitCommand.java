@@ -51,7 +51,7 @@ public class InitCommand implements Command, Serializable {
 				this.facing = Direction.valueOf(params[CommonConstants.TWO].trim().toUpperCase());
 				this.valid = true;
 			} catch (Exception e) {
-				e.printStackTrace();
+				System.out.println("Unknown direction: " + params[CommonConstants.TWO]);
 				// Cannot convent to facing
 				// set the valid flag to false
 				this.valid = false;

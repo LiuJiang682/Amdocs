@@ -9,7 +9,7 @@ import au.com.amdocs.common.StringUtils;
  * 
  */
 public enum CommandEnum {
-	INIT, FORWARD, TURN_LEFT, TURN_RIGHT, GPS_REPORT, DONOTHING;
+	INIT, FORWARD, TURN_LEFT, TURN_RIGHT, GPS_REPORT, DONOTHING, QUIT;
 
 	public static CommandEnum fromString(final String commandString) {
 		if ((!StringUtils.isNullOrEmpty(commandString))

@@ -55,6 +55,9 @@ public class CommandConstructFactory implements Serializable {
 		case GPS_REPORT:
 			commandFactory = new GPSReportCommandFactory();
 			break;
+		case QUIT:
+			commandFactory = new QuitCommandFactory();
+			break;
 		case DONOTHING:
 			commandFactory = new DoNothingCommandFactory();
 		}
